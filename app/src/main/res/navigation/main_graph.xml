@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/epochsFragment">
+
+    <fragment
+        android:id="@+id/datesFragment"
+        android:name="ru.lehandr.framehistoryrussia.dates.view.DatesFragment"
+        android:label="fragment_dates"
+        tools:layout="@layout/fragment_dates" />
+    <fragment
+        android:id="@+id/epochsFragment"
+        android:name="ru.lehandr.framehistoryrussia.epochs.view.EpochsFragment"
+        android:label="fragment_epochs"
+        tools:layout="@layout/fragment_epochs" />
+    <fragment
+        android:id="@+id/personsFragment"
+        android:name="ru.lehandr.framehistoryrussia.persons.view.PersonsFragment"
+        android:label="fragment_persons"
+        tools:layout="@layout/fragment_persons" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ru.lehandr.framehistoryrussia.settings.view.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+</navigation>

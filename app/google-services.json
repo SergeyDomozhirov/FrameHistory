@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "219117671398",
+    "project_id": "frame-history",
+    "storage_bucket": "frame-history.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:219117671398:android:399980810c76a866a93c27",
+        "android_client_info": {
+          "package_name": "ru.lehandr.framehistoryrussia"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "219117671398-8trksf9rlmuupitc7dl7ki0d59rs5poh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.lehandr.framehistoryrussia",
+            "certificate_hash": "9be02b2b8ffa213c5e52b499efe516f24926a127"
+          }
+        },
+        {
+          "client_id": "219117671398-l69k889itnhrfmm06dfo66or4gmq7epi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTXK4ZCzhqbzCG7ZkI9ZQGdvF9Fz29Ij8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "219117671398-l69k889itnhrfmm06dfo66or4gmq7epi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

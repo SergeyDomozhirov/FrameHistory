@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/epochsFragment"
+        android:icon="@drawable/ic_epochs"
+        android:iconTint="@color/colorSecondary"
+        android:title="Эпохи"
+        app:showAsAction="always"/>
+
+    <item android:id="@+id/datesFragment"
+        android:icon="@drawable/ic_dates"
+        android:iconTint="@color/colorSecondary"
+        android:title="Даты"/>
+
+    <item android:id="@+id/personsFragment"
+        android:icon="@drawable/ic_persons"
+        android:iconTint="@color/colorSecondary"
+        android:title="Личности"/>
+
+    <item android:id="@+id/settingsFragment"
+        android:icon="@drawable/ic_service"
+        android:iconTint="@color/colorSecondary"
+        android:title="Сервис"/>
+
+</menu>
