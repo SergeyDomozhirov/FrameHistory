@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
 
         initNavigation()
-        authLogin()
+        //authLogin()
     }
 
     private fun initNavigation() {
