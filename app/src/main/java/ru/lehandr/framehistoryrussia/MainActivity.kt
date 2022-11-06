@@ -21,9 +21,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import ru.lehandr.framehistoryrussia.model.EpochsModel
+import dagger.hilt.android.AndroidEntryPoint
+import ru.lehandr.domain.model.EpochsModel
 import kotlin.math.log
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val auth = Firebase.auth
