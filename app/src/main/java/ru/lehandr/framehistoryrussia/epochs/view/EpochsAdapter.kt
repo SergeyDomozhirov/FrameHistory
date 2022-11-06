@@ -12,7 +12,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
-import ru.lehandr.framehistoryrussia.model.EpochsModel
+import ru.lehandr.domain.model.EpochsModel
 
 class EpochsAdapter(private var listEpochs: List<EpochsModel>, private var listener: Listener) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
 

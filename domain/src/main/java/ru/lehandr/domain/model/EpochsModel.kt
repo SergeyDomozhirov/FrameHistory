@@ -1,4 +1,4 @@
-package ru.lehandr.framehistoryrussia.model
+package ru.lehandr.domain.model
 
 data class EpochsModel(var id: Int? = null,
                        var imageURL: String? = null,
