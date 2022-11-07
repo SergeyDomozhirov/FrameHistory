@@ -1,9 +1,15 @@
 package ru.lehandr.framehistoryrussia.epochs.view
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.useCase.EpochsListUseCase
 import javax.inject.Inject
@@ -11,10 +17,16 @@ import javax.inject.Inject
 @HiltViewModel
 class EpochViewModel @Inject constructor(private val epochListUseCase: EpochsListUseCase) : ViewModel() {
 
-    private val epochListMutable: MutableLiveData<ArrayList<EpochsModel>> = MutableLiveData()
-    val epochListLiveData: LiveData<ArrayList<EpochsModel>> = epochListMutable
+    private val epochListMutable: MutableLiveData<List<EpochsModel>> = MutableLiveData()
+    val epochListLiveData: LiveData<List<EpochsModel>> = epochListMutable
 
     fun initRecyclerServices() {
-        epochListMutable.value = epochListUseCase.execute()
+        viewModelScope.launch {
+//
+               epochListUseCase.execute().collect {
+                   epochListMutable.value = it
+               }
+            Log.d("111", """""")
+        }
     }
 }
