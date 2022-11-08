@@ -23,11 +23,11 @@ class EpochViewModel @Inject constructor(private val epochListUseCase: EpochsLis
 
     fun initRecyclerServices() {
         viewModelScope.launch {
-//
                epochListUseCase.execute().collect {
                    epochListMutable.value = it
-                   Log.d("KAN", it.toString())
                }
+
+
         }
     }
 }

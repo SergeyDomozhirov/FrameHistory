@@ -47,10 +47,7 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
             binding.epochsRv.layoutManager = LinearLayoutManager(requireContext())
             binding.epochsRv.adapter = adapter
         }
-
     }
-
-
 
     override fun onClick(uri: String) {
     /*    db.collection("$uri/mobile").get().addOnSuccessListener { result ->
