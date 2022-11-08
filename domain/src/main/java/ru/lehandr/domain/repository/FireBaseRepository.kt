@@ -5,6 +5,6 @@ import ru.lehandr.domain.model.EpochsModel
 
 interface FireBaseRepository {
 
-    suspend fun getListEpochs(): Flow<List<EpochsModel>>
+    fun getEpochListFlow(): Flow<List<EpochsModel>>
 
 }

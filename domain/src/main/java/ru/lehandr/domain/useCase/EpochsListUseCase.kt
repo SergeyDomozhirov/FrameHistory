@@ -6,6 +6,8 @@ import ru.lehandr.domain.repository.FireBaseRepository
 
 class EpochsListUseCase(private val repository: FireBaseRepository) {
 
-    suspend fun execute(): Flow<List<EpochsModel>> = repository.getListEpochs()
+    fun execute() = repository.getEpochListFlow()
+
+
 
 }
