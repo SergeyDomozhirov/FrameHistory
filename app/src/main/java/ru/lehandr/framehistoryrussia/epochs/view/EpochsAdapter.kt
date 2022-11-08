@@ -10,11 +10,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
+import dagger.hilt.android.AndroidEntryPoint
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
 import ru.lehandr.domain.model.EpochsModel
+import ru.lehandr.domain.useCase.EpochsListUseCase
+import javax.inject.Inject
 
-class EpochsAdapter(private var listEpochs: List<EpochsModel>, private var listener: Listener) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
+class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var listener: Listener) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
+
+    @Inject lateinit var epochLoadImageUseCase: EpochsListUseCase
 
     interface Listener {
         fun onClick(uri: String)
@@ -40,7 +45,8 @@ class EpochsAdapter(private var listEpochs: List<EpochsModel>, private var liste
 
         fun bind(item: EpochsModel?) {
             item?.imageURL?.let { storage.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { uri ->
-                Glide.with(context).load(uri).into(binding.imageEpoch) } }
+                Glide.with(context).load(uri).into(binding.imageEpoch) }
+            }
             binding.imageEpoch.setOnClickListener {
                 item?.fullPath?.let { epoch -> listener.onClick(uri = epoch) }
             }
