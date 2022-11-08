@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.lehandr.domain.model.EpochsModel
@@ -25,8 +26,8 @@ class EpochViewModel @Inject constructor(private val epochListUseCase: EpochsLis
 //
                epochListUseCase.execute().collect {
                    epochListMutable.value = it
+                   Log.d("KAN", it.toString())
                }
-            Log.d("111", """""")
         }
     }
 }
