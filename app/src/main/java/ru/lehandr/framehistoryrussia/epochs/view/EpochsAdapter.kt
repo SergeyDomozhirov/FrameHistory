@@ -14,12 +14,12 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
 import ru.lehandr.domain.model.EpochsModel
+import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import ru.lehandr.domain.useCase.EpochsListUseCase
+import ru.lehandr.framehistoryrussia.data.FirebaseStorageRepositoryImpl
 import javax.inject.Inject
 
 class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var listener: Listener) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
-
-    @Inject lateinit var epochLoadImageUseCase: EpochsListUseCase
 
     interface Listener {
         fun onClick(uri: String)
@@ -41,9 +41,17 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var list
     class EpochHolder(view: View, private val context: Context, private var listener: Listener) : RecyclerView.ViewHolder(view) {
 
         private val binding: ItemEpochBinding = ItemEpochBinding.bind(view)
+
         private val storage = Firebase.storage
+        /*private val repository = FirebaseStorageRepositoryImpl(storage)
+        private val epochLoadImageUseCase: EpochLoadImageUseCase = EpochLoadImageUseCase(repository)*/
+
+//        @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
         fun bind(item: EpochsModel?) {
+//            epochLoadImageUseCase.execute()
+//            epochLoadImageUseCaseHilt.execute()
+
             item?.imageURL?.let { storage.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { uri ->
                 Glide.with(context).load(uri).into(binding.imageEpoch) }
             }
