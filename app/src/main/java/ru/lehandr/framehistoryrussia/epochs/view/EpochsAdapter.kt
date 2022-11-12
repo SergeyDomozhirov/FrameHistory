@@ -46,14 +46,15 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var list
         /*private val repository = FirebaseStorageRepositoryImpl(storage)
         private val epochLoadImageUseCase: EpochLoadImageUseCase = EpochLoadImageUseCase(repository)*/
 
-//        @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+       //@Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
         fun bind(item: EpochsModel?) {
 //            epochLoadImageUseCase.execute()
 //            epochLoadImageUseCaseHilt.execute()
 
-            item?.imageURL?.let { storage.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { uri ->
-                Glide.with(context).load(uri).into(binding.imageEpoch) }
+            item?.imageURL?.let {
+                /*storage.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { uri ->
+                Glide.with(context).load(uri).into(binding.imageEpoch) }*/
             }
             binding.imageEpoch.setOnClickListener {
                 item?.fullPath?.let { epoch -> listener.onClick(uri = epoch) }

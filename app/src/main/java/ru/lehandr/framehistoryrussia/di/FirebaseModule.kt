@@ -19,6 +19,8 @@ import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import ru.lehandr.framehistoryrussia.data.FirebaseStorageRepositoryImpl
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.Firestore
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.FirestoreImpl
+import ru.lehandr.framehistoryrussia.data.firebase.storage.FireBaseStorage
+import ru.lehandr.framehistoryrussia.data.firebase.storage.FireBaseStorageImpl
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -39,20 +41,31 @@ class FirebaseModule {
         return Firebase.storage
     }
 
+
+
     @Provides
     fun provideFireBaseRepository(db: Firestore): FireBaseRepository {
         return FireBaseRepositoryImpl(db)
     }
 
     @Provides
-    fun provideFirebaseStorageRepository(storage: FirebaseStorage): FirebaseStorageRepository {
+    fun provideFirebaseStorageRepository(storage: FireBaseStorage): FirebaseStorageRepository {
         return FirebaseStorageRepositoryImpl(storage)
     }
+
+
 
     @Provides
     fun provideFirestore(db: FirebaseFirestore, env: Environment.Companion): Firestore {
         return FirestoreImpl(db, env)
     }
+
+    @Provides
+    fun provideFireBaseStorage(): FireBaseStorage {
+        return FireBaseStorageImpl()
+    }
+
+
 
 
     @Provides
