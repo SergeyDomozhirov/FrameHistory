@@ -11,6 +11,9 @@ import com.bumptech.glide.Glide
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
 import ru.lehandr.domain.model.EpochsModel
@@ -38,23 +41,22 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var list
         return listEpochs.size
     }
 
+    @
     class EpochHolder(view: View, private val context: Context, private var listener: Listener) : RecyclerView.ViewHolder(view) {
 
         private val binding: ItemEpochBinding = ItemEpochBinding.bind(view)
 
-        private val storage = Firebase.storage
-        /*private val repository = FirebaseStorageRepositoryImpl(storage)
-        private val epochLoadImageUseCase: EpochLoadImageUseCase = EpochLoadImageUseCase(repository)*/
-
-       //@Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+       @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
         fun bind(item: EpochsModel?) {
-//            epochLoadImageUseCase.execute()
-//            epochLoadImageUseCaseHilt.execute()
 
-            item?.imageURL?.let {
-                /*storage.getReferenceFromUrl(it).downloadUrl.addOnSuccessListener { uri ->
-                Glide.with(context).load(uri).into(binding.imageEpoch) }*/
+            item?.imageURL?.let { imageUrl ->
+                MainScope().launch {
+                    epochLoadImageUseCaseHilt.execute().collect { uri ->
+                        Glide.with(context).load(uri).into(binding.imageEpoch)
+                    }
+                    epochLoadImageUseCaseHilt.execute(imageUrl)
+                }
             }
             binding.imageEpoch.setOnClickListener {
                 item?.fullPath?.let { epoch -> listener.onClick(uri = epoch) }

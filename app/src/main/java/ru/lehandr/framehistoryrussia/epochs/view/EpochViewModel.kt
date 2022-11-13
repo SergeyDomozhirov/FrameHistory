@@ -26,8 +26,6 @@ class EpochViewModel @Inject constructor(private val epochListUseCase: EpochsLis
                epochListUseCase.execute().collect {
                    epochListMutable.value = it
                }
-
-
         }
     }
 }

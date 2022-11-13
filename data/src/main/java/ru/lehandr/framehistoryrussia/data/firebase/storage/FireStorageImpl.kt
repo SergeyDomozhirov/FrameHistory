@@ -9,11 +9,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 
-class FireBaseStorageImpl() : FireBaseStorage {
+class FireStorageImpl(private val storage: FirebaseStorage) : FireStorage {
 
     private val imageUriFlow = MutableSharedFlow<Uri>()
-
-    private val storage: FirebaseStorage = Firebase.storage
 
     override fun loadImageByURL(imageURL: String) {
        storage.getReferenceFromUrl(imageURL).downloadUrl.addOnSuccessListener { uri ->

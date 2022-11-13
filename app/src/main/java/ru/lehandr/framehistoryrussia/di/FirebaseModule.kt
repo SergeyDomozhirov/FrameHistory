@@ -6,6 +6,7 @@ import com.google.firebase.firestore.ktx.firestoreSettings
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,8 +20,9 @@ import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import ru.lehandr.framehistoryrussia.data.FirebaseStorageRepositoryImpl
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.Firestore
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.FirestoreImpl
-import ru.lehandr.framehistoryrussia.data.firebase.storage.FireBaseStorage
-import ru.lehandr.framehistoryrussia.data.firebase.storage.FireBaseStorageImpl
+import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorage
+import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorageImpl
+import javax.inject.Qualifier
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -41,19 +43,15 @@ class FirebaseModule {
         return Firebase.storage
     }
 
-
-
     @Provides
     fun provideFireBaseRepository(db: Firestore): FireBaseRepository {
         return FireBaseRepositoryImpl(db)
     }
 
     @Provides
-    fun provideFirebaseStorageRepository(storage: FireBaseStorage): FirebaseStorageRepository {
+    fun provideFirebaseStorageRepository(storage: FireStorage): FirebaseStorageRepository {
         return FirebaseStorageRepositoryImpl(storage)
     }
-
-
 
     @Provides
     fun provideFirestore(db: FirebaseFirestore, env: Environment.Companion): Firestore {
@@ -61,12 +59,9 @@ class FirebaseModule {
     }
 
     @Provides
-    fun provideFireBaseStorage(): FireBaseStorage {
-        return FireBaseStorageImpl()
+    fun provideFireStorage(storage: FirebaseStorage): FireStorage {
+        return FireStorageImpl(storage)
     }
-
-
-
 
     @Provides
     fun provideEpochsListUseCase(repository: FireBaseRepository): EpochsListUseCase {
