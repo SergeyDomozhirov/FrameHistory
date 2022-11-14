@@ -22,7 +22,10 @@ import ru.lehandr.domain.useCase.EpochsListUseCase
 import ru.lehandr.framehistoryrussia.data.FirebaseStorageRepositoryImpl
 import javax.inject.Inject
 
-class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var listener: Listener) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
+class EpochsAdapter (private var listEpochs: List<EpochsModel>,
+                     private var listener: Listener,
+                     private var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+                     ) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
 
     interface Listener {
         fun onClick(uri: String)
@@ -30,7 +33,7 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var list
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpochHolder {
         return EpochHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_epoch, parent, false),
-            parent.context, listener)
+            parent.context, listener, epochLoadImageUseCaseHilt)
     }
 
     override fun onBindViewHolder(holder: EpochHolder, position: Int) {
@@ -41,26 +44,32 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>, private var list
         return listEpochs.size
     }
 
-    @
-    class EpochHolder(view: View, private val context: Context, private var listener: Listener) : RecyclerView.ViewHolder(view) {
+    class EpochHolder(view: View, private val context: Context,
+                      private var listener: Listener,
+                      private var epochLoadImageUseCaseHilt: EpochLoadImageUseCase) : RecyclerView.ViewHolder(view) {
 
         private val binding: ItemEpochBinding = ItemEpochBinding.bind(view)
 
-       @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+//        @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
         fun bind(item: EpochsModel?) {
 
+            MainScope().launch {
+                epochLoadImageUseCaseHilt.execute().collect { uri ->
+                    Glide.with(context).load(uri).into(binding.imageEpoch)
+                }
+            }
+
             item?.imageURL?.let { imageUrl ->
                 MainScope().launch {
-                    epochLoadImageUseCaseHilt.execute().collect { uri ->
-                        Glide.with(context).load(uri).into(binding.imageEpoch)
-                    }
                     epochLoadImageUseCaseHilt.execute(imageUrl)
                 }
             }
             binding.imageEpoch.setOnClickListener {
                 item?.fullPath?.let { epoch -> listener.onClick(uri = epoch) }
             }
+
+
         }
     }
 }

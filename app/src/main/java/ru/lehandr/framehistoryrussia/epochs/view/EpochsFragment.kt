@@ -21,15 +21,19 @@ import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.FragmentEpochsBinding
 import ru.lehandr.domain.model.ComicModel
 import ru.lehandr.domain.model.EpochsModel
+import ru.lehandr.domain.useCase.EpochLoadImageUseCase
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class EpochsFragment : Fragment(), EpochsAdapter.Listener {
+class EpochsFragment: Fragment(), EpochsAdapter.Listener {
 
     private val viewModel: EpochViewModel by viewModels()
     private var _binding: FragmentEpochsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private val TAG = "KAN"
+
+    @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEpochsBinding.inflate(inflater, container, false)
@@ -43,7 +47,7 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
         viewModel.initRecyclerServices()
 
         viewModel.epochListLiveData.observe(viewLifecycleOwner) { epochList ->
-            val adapter = EpochsAdapter(epochList.sortedBy { it.id }, this)
+            val adapter = EpochsAdapter(epochList.sortedBy { it.id }, this, epochLoadImageUseCaseHilt)
             binding.epochsRv.layoutManager = LinearLayoutManager(requireContext())
             binding.epochsRv.adapter = adapter
         }

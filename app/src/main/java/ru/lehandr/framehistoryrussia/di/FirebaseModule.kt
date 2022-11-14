@@ -10,7 +10,9 @@ import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.FragmentComponent
 import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.components.SingletonComponent
 import ru.lehandr.domain.repository.FireBaseRepository
 import ru.lehandr.domain.repository.FirebaseStorageRepository
 import ru.lehandr.domain.useCase.EpochsListUseCase
@@ -23,9 +25,10 @@ import ru.lehandr.framehistoryrussia.data.firebase.firestore.FirestoreImpl
 import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorage
 import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorageImpl
 import javax.inject.Qualifier
+import javax.inject.Singleton
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(ViewModelComponent::class, FragmentComponent::class)
 class FirebaseModule {
 
     @Provides

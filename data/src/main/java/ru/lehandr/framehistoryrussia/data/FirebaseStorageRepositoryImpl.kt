@@ -6,7 +6,7 @@ import ru.lehandr.domain.repository.FirebaseStorageRepository
 import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorage
 import javax.inject.Inject
 
-class FirebaseStorageRepositoryImpl @Inject constructor (private val storage : FireStorage) : FirebaseStorageRepository {
+class FirebaseStorageRepositoryImpl @Inject constructor (private val storage: FireStorage) : FirebaseStorageRepository {
 
     override fun loadImageFromStorage(imageURL: String) {
         storage.loadImageByURL(imageURL)
