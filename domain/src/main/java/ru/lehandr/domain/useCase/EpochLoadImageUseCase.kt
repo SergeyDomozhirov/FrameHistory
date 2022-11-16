@@ -10,12 +10,8 @@ import javax.inject.Inject
 
 class EpochLoadImageUseCase @Inject constructor (private val repository: FirebaseStorageRepository) {
 
-    fun execute(imageURL: String) {
-        repository.loadImageFromStorage(imageURL)
-    }
-
-    fun execute(): Flow<Uri> {
-        return repository.getImageUriFlow()
+    fun execute(imageURL: String): Flow<Uri> {
+        return repository.loadImageFromStorage(imageURL)
     }
 
 }

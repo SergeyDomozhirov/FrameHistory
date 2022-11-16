@@ -12,6 +12,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.lehandr.framehistoryrussia.R
@@ -50,21 +51,16 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>,
 
         private val binding: ItemEpochBinding = ItemEpochBinding.bind(view)
 
-//        @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
-
         fun bind(item: EpochsModel?) {
-
-            MainScope().launch {
-                epochLoadImageUseCaseHilt.execute().collect { uri ->
-                    Glide.with(context).load(uri).into(binding.imageEpoch)
-                }
-            }
 
             item?.imageURL?.let { imageUrl ->
                 MainScope().launch {
-                    epochLoadImageUseCaseHilt.execute(imageUrl)
+                    epochLoadImageUseCaseHilt.execute(imageUrl).collect {
+                        Glide.with(context).load(it).into(binding.imageEpoch)
+                    }
                 }
             }
+
             binding.imageEpoch.setOnClickListener {
                 item?.fullPath?.let { epoch -> listener.onClick(uri = epoch) }
             }

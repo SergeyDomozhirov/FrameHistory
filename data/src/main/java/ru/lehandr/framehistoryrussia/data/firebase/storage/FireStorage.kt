@@ -5,7 +5,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface FireStorage {
 
-    fun loadImageByURL(imageURL: String)
-    fun getImageUriFlow(): Flow<Uri>
+    fun loadImageByURL(imageURL: String): Flow<Uri>
 
 }

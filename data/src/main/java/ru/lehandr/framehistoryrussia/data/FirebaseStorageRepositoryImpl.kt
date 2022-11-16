@@ -8,13 +8,8 @@ import javax.inject.Inject
 
 class FirebaseStorageRepositoryImpl @Inject constructor (private val storage: FireStorage) : FirebaseStorageRepository {
 
-    override fun loadImageFromStorage(imageURL: String) {
-        storage.loadImageByURL(imageURL)
+    override fun loadImageFromStorage(imageURL: String): Flow<Uri> {
+        return storage.loadImageByURL(imageURL)
     }
-
-    override fun getImageUriFlow(): Flow<Uri> {
-        return storage.getImageUriFlow()
-    }
-
 
 }
