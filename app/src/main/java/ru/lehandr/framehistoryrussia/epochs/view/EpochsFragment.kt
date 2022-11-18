@@ -23,7 +23,7 @@ import ru.lehandr.domain.model.ComicModel
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import javax.inject.Inject
-
+// Hilt для fragmenta. И создание viewModel
 @AndroidEntryPoint
 class EpochsFragment: Fragment(), EpochsAdapter.Listener {
 
@@ -32,7 +32,7 @@ class EpochsFragment: Fragment(), EpochsAdapter.Listener {
     private val binding get() = _binding!!
     private lateinit var navController: NavController
     private val TAG = "KAN"
-
+// Получаем зависимость
     @Inject lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

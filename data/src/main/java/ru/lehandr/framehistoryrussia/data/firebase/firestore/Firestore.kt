@@ -5,7 +5,6 @@ import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.EpochsModelD
 
 interface Firestore {
 
-    fun initListEpochs()
     fun getEpochListFlow(): Flow<List<EpochsModelData>>
 
 }
