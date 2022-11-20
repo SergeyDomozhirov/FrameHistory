@@ -1,51 +1,23 @@
 package ru.lehandr.framehistoryrussia.data
 
-import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.launch
-import ru.lehandr.data.BuildConfig
+import kotlinx.coroutines.flow.map
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.repository.FireBaseRepository
-import ru.lehandr.domain.setting.env.Environment
+import ru.lehandr.framehistoryrussia.data.firebase.firestore.Firestore
+import ru.lehandr.framehistoryrussia.data.utils.toModelDomain
 import javax.inject.Inject
 
-class FireBaseRepositoryImpl @Inject constructor(private val db: FirebaseFirestore,
-private val env: Environment.Companion) : FireBaseRepository {
-
-    private val epochListFlow = MutableSharedFlow<List<EpochsModel>>()
+class FireBaseRepositoryImpl @Inject constructor(private val db: Firestore) : FireBaseRepository {
 
     override fun getEpochListFlow(): Flow<List<EpochsModel>> {
-        initListEpochs()
-        return epochListFlow
+        return db.getEpochListFlow().map { listEpochsData ->
+            val listEpochsDomain = ArrayList<EpochsModel>()
+            for (item in listEpochsData) {
+                listEpochsDomain.add(item.toModelDomain())
+            }
+            return@map listEpochsDomain
+        }
     }
 
-    private fun initListEpochs() {
-        val epochsList = ArrayList<EpochsModel>()
-        val docRef = db.collection("language").document("rus").collection("platform")
-            .document("mobile").collection("section").document("epochs").collection("icons")
-
-                docRef.get().addOnSuccessListener { result ->
-                    for (i in 0 until result.size()) {
-                        docRef.document(result.documents[i].id).get().addOnSuccessListener { documentSnapshot ->
-                            documentSnapshot.toObject<EpochsModel>()?.let {
-                                epochsList.add(EpochsModel(id = it.id, imageURL = it.imageURL, fullPath = documentSnapshot.reference.path))
-                                if (epochsList.size == result.size()) {
-                                    MainScope().launch {
-                                        epochListFlow.emit(epochsList)
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                    .addOnFailureListener {
-                        if (BuildConfig.DEBUG) {
-                            Log.e(env.ARG_ERROR, "Error getting documents - ${it.localizedMessage}")
-                        }
-                    }
-        }
 }
