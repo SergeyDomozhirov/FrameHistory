@@ -1,4 +1,4 @@
-package ru.lehandr.framehistoryrussia.epochs.view
+package ru.lehandr.framehistoryrussia.epochs.epochs
 
 import android.content.Context
 import android.view.LayoutInflater

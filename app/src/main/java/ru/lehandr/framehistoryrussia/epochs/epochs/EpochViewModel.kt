@@ -1,4 +1,4 @@
-package ru.lehandr.framehistoryrussia.epochs.view
+package ru.lehandr.framehistoryrussia.epochs.epochs
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

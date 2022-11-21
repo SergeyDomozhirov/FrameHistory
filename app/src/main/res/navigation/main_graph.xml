@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_dates" />
     <fragment
         android:id="@+id/epochsFragment"
-        android:name="ru.lehandr.framehistoryrussia.epochs.view.EpochsFragment"
+        android:name="ru.lehandr.framehistoryrussia.epochs.epochs.EpochsFragment"
         android:label="fragment_epochs"
         tools:layout="@layout/fragment_epochs" />
     <fragment
@@ -25,4 +25,9 @@
         android:name="ru.lehandr.framehistoryrussia.settings.view.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/comicsFragment"
+        android:name="ru.lehandr.framehistoryrussia.epochs.comics.ComicsFragment"
+        android:label="fragment_comics"
+        tools:layout="@layout/fragment_comics" />
 </navigation>
