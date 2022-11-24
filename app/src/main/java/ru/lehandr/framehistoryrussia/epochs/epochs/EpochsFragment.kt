@@ -13,6 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.FragmentEpochsBinding
+import ru.lehandr.framehistoryrussia.epochs.comics.ARG_URL_EPOCH
 import javax.inject.Inject
 
 // Hilt для fragmenta. И создание viewModel
@@ -48,7 +49,9 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
         }
     }
 
-    override fun onClick(uri: String) {
-        navController.navigate(R.id.comicsFragment)
+    override fun onClick(url: String) {
+        val args = Bundle()
+        args.putString(ARG_URL_EPOCH, url)
+        navController.navigate(R.id.comicsFragment, args)
     }
 }
