@@ -5,27 +5,23 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
-import kotlinx.android.synthetic.main.comics_image.*
-import kotlinx.android.synthetic.main.comics_image.view.*
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ru.lehandr.data.BuildConfig
+import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.ComicsModelData
 import ru.lehandr.framehistoryrussia.databinding.FragmentComicsBinding
 
 const val ARG_URL_EPOCH = "arg_url_epoch"
 
-class ComicsFragment : Fragment() {
+class ComicsFragment : Fragment(), ComicsAdapter.ClickListener {
 
     val db = Firebase.firestore
     private var urlEpoch: String? = null
@@ -61,14 +57,14 @@ class ComicsFragment : Fragment() {
                         documentSnapshot.toObject<ComicsModelData>()?.let { modelData ->
                             comicsList.add(
                                 ComicsModelData(
-                                    id = modelData.id, imageURL = modelData.imageURL,
+                                    id = modelData.id, coverURL = modelData.coverURL,
                                     fullPath = documentSnapshot.reference.path + modelData.fullPath
                                 )
                             )
                             if (comicsList.size == result.size()) {
                                 MainScope().launch {
 //                                    trySend(comicsList)
-                                    val adapter = ComicsAdapter(comicsList)
+                                    val adapter = ComicsAdapter(comicsList.sortedBy { it.id }, clickListener = this@ComicsFragment)
                                     binding.comicsRv.adapter = adapter
                                 }
                             }
@@ -86,13 +82,13 @@ class ComicsFragment : Fragment() {
             binding.emptyPage.visibility = View.VISIBLE
         }
 
-        /* val adapter = ComicsAdapter()
-         binding.comicsRv.layoutManager = LinearLayoutManager(requireContext())
-         binding.comicsRv.adapter = adapter*/
-
         binding.toolbar.setNavigationOnClickListener {
             navController.popBackStack()
         }
+    }
+
+    override fun onClick() {
+        Toast.makeText(requireContext(),"Нажали на собаку", Toast.LENGTH_LONG).show()
     }
 }
 
