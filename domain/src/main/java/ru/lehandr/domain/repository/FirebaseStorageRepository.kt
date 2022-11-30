@@ -7,4 +7,6 @@ interface FirebaseStorageRepository {
 
     fun loadImageFromStorage(imageURL: String): Flow<Uri>
 
+    fun loadCoverFromStorage(coverUrl: String): Flow<String>
+
 }

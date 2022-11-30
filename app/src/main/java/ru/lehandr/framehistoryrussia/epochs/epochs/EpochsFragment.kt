@@ -40,7 +40,6 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
 
 
         navController = view.findNavController()
-        viewModel.initRecyclerServices()
 
         viewModel.epochListLiveData.observe(viewLifecycleOwner) { epochList ->
             val adapter = EpochsAdapter(epochList.sortedBy { it.id }, this, epochLoadImageUseCaseHilt)

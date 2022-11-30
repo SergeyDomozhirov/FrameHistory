@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import ru.lehandr.data.BuildConfig
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.setting.env.Environment
+import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.ComicsModelData
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.EpochsModelData
 import javax.inject.Inject
 
@@ -51,5 +52,10 @@ class FirestoreImpl @Inject constructor(private val db: FirebaseFirestore,
         }
     }
 
+    override fun getComicsListFlow(): Flow<List<ComicsModelData>> {
+     return callbackFlow {
+
+     }
+    }
 
 }

@@ -6,13 +6,15 @@ import ru.lehandr.domain.repository.FirebaseStorageRepository
 import ru.lehandr.framehistoryrussia.data.firebase.storage.FireStorage
 import javax.inject.Inject
 
-class FirebaseStorageRepositoryImpl @Inject constructor (private val storage: FireStorage) : FirebaseStorageRepository {
+class FirebaseStorageRepositoryImpl @Inject constructor(private val storage: FireStorage) : FirebaseStorageRepository {
 
-    //Метод загрузки изображение из Storage
-    //TODO Узнать что значит параметр в скобке
+//TODO
     override fun loadImageFromStorage(imageURL: String): Flow<Uri> {
-        //Возвращаю загруженное изображение
         return storage.loadImageByURL(imageURL)
+    }
+
+    override fun loadCoverFromStorage(coverUrl: String): Flow<String> {
+        TODO("Not yet implemented")
     }
 
 }

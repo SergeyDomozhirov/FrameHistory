@@ -14,6 +14,8 @@ import dagger.hilt.android.components.ViewModelComponent
 import ru.lehandr.domain.repository.FireBaseRepository
 import ru.lehandr.domain.repository.FirebaseStorageRepository
 import ru.lehandr.domain.setting.env.Environment
+import ru.lehandr.domain.useCase.ComicLoadImageUseCase
+import ru.lehandr.domain.useCase.ComicsListUseCase
 import ru.lehandr.domain.useCase.EpochLoadImageUseCase
 import ru.lehandr.domain.useCase.EpochsListUseCase
 import ru.lehandr.framehistoryrussia.data.FireBaseRepositoryImpl
@@ -74,6 +76,16 @@ class FirebaseModule {
     fun provideEpochLoadImageUseCase(repository: FirebaseStorageRepository): EpochLoadImageUseCase {
         return EpochLoadImageUseCase(repository)
     }
+
+//    @Provides
+//    fun provideComicsListUseCase(repository: FireBaseRepository): ComicsListUseCase {
+//        return ComicsListUseCase(repository)
+//    }
+//
+//    @Provides
+//    fun provideComicLoadImageUseCase(repository: FirebaseStorageRepository): ComicLoadImageUseCase {
+//        return ComicLoadImageUseCase(repository)
+//   }
 
     @Provides
     fun provideEnvironment(): Environment.Companion {

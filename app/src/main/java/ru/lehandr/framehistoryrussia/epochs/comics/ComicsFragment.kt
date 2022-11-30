@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import com.google.firebase.firestore.ktx.firestore
@@ -15,19 +16,25 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ru.lehandr.data.BuildConfig
+import ru.lehandr.domain.useCase.ComicLoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.ComicsModelData
 import ru.lehandr.framehistoryrussia.databinding.FragmentComicsBinding
+import javax.inject.Inject
 
 const val ARG_URL_EPOCH = "arg_url_epoch"
 
 class ComicsFragment : Fragment(), ComicsAdapter.ClickListener {
 
     val db = Firebase.firestore
+    private val viewModel: ComicsViewModel by viewModels()
     private var urlEpoch: String? = null
     private var _binding: FragmentComicsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
+
+//    @Inject
+//    latenir var comicLoadImageUseCaseHilt: ComicLoadImageUseCase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

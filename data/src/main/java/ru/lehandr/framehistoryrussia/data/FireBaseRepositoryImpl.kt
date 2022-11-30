@@ -2,6 +2,7 @@ package ru.lehandr.framehistoryrussia.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import ru.lehandr.domain.model.ComicModel
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.repository.FireBaseRepository
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.Firestore
@@ -18,6 +19,10 @@ class FireBaseRepositoryImpl @Inject constructor(private val db: Firestore) : Fi
             }
             return@map listEpochsDomain
         }
+    }
+
+    override fun getComicsListFlow(): Flow<List<ComicModel>> {
+        TODO("Not yet implemented")
     }
 
 }

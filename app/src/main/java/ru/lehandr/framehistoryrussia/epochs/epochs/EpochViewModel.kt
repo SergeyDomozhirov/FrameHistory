@@ -16,11 +16,11 @@ class EpochViewModel @Inject constructor(private val epochListUseCase: EpochsLis
     private val epochListMutable: MutableLiveData<List<EpochsModel>> = MutableLiveData()
     val epochListLiveData: LiveData<List<EpochsModel>> = epochListMutable
 
-    fun initRecyclerServices() {
+    init {
         viewModelScope.launch {
-               epochListUseCase.execute().collect {
-                   epochListMutable.value = it
-               }
+            epochListUseCase.execute().collect {
+                epochListMutable.value = it
+            }
         }
     }
 }
