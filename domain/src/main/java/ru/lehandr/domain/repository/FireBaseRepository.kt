@@ -8,6 +8,6 @@ interface FireBaseRepository {
 
     fun getEpochListFlow(): Flow<List<EpochsModel>>
 
-    fun getComicsListFlow(): Flow<List<ComicModel>>
+    fun getComicsListFlow(url: String): Flow<List<ComicModel>>
 
 }

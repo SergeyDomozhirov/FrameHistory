@@ -8,6 +8,6 @@ interface Firestore {
 
     fun getEpochListFlow(): Flow<List<EpochsModelData>>
 
-    fun getComicsListFlow(): Flow<List<ComicsModelData>>
+    fun getComicsListFlow(url: String): Flow<List<ComicsModelData>>
 
 }

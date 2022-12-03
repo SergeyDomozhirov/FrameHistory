@@ -6,7 +6,8 @@ import ru.lehandr.domain.model.ComicModel
 import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.repository.FireBaseRepository
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.Firestore
-import ru.lehandr.framehistoryrussia.data.utils.toModelDomain
+import ru.lehandr.framehistoryrussia.data.utils.toComicsModelDomain
+import ru.lehandr.framehistoryrussia.data.utils.toEpochModelDomain
 import javax.inject.Inject
 
 class FireBaseRepositoryImpl @Inject constructor(private val db: Firestore) : FireBaseRepository {
@@ -15,14 +16,20 @@ class FireBaseRepositoryImpl @Inject constructor(private val db: Firestore) : Fi
         return db.getEpochListFlow().map { listEpochsData ->
             val listEpochsDomain = ArrayList<EpochsModel>()
             for (item in listEpochsData) {
-                listEpochsDomain.add(item.toModelDomain())
+                listEpochsDomain.add(item.toEpochModelDomain())
             }
             return@map listEpochsDomain
         }
     }
 
-    override fun getComicsListFlow(): Flow<List<ComicModel>> {
-        TODO("Not yet implemented")
+    override fun getComicsListFlow(url: String): Flow<List<ComicModel>> {
+        return db.getComicsListFlow(url).map { listComicsData ->
+            val listComicsDomain = ArrayList<ComicModel>()
+            listComicsData.forEach {
+                listComicsDomain.add(it.toComicsModelDomain)
+            }
+            return@map listComicsDomain
+        }
     }
 
 }

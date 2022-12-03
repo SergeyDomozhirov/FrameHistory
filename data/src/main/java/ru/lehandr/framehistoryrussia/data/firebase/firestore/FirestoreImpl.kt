@@ -52,10 +52,35 @@ class FirestoreImpl @Inject constructor(private val db: FirebaseFirestore,
         }
     }
 
-    override fun getComicsListFlow(): Flow<List<ComicsModelData>> {
-     return callbackFlow {
+    override fun getComicsListFlow(url: String): Flow<List<ComicsModelData>> {
+        return callbackFlow {
+            val comicsList = ArrayList<ComicsModelData>()
+            val docRef = db.collection(url)
 
-     }
+            val docRefListener = docRef.get().addOnSuccessListener { result ->
+                for (i in 0 until result.size()) {
+                    docRef.document(result.documents[i].id).get().addOnSuccessListener { documentSnapshot ->
+                        documentSnapshot.toObject<ComicsModelData>()?.let { modelData ->
+                            comicsList.add(ComicsModelData(id = modelData.id, coverURL = modelData.coverURL,
+                                fullPath = documentSnapshot.reference.path + modelData.fullPath))
+                            if (comicsList.size == result.size()) {
+                                MainScope().launch {
+                                    trySend(comicsList)
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+                .addOnFailureListener {
+                    if (BuildConfig.DEBUG) {
+                        Log.e(env.ARG_ERROR, "Error getting documents - ${it.localizedMessage}")
+                    }
+                }
+            awaitClose {
+                docRefListener
+            }
+        }
     }
 
 }

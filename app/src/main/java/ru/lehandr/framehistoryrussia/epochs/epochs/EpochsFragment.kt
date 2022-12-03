@@ -10,13 +10,12 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
-import ru.lehandr.domain.useCase.EpochLoadImageUseCase
+import ru.lehandr.domain.useCase.LoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.FragmentEpochsBinding
 import ru.lehandr.framehistoryrussia.epochs.comics.ARG_URL_EPOCH
 import javax.inject.Inject
 
-// Hilt для fragmenta. И создание viewModel
 @AndroidEntryPoint
 class EpochsFragment : Fragment(), EpochsAdapter.Listener {
 
@@ -24,11 +23,9 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
     private var _binding: FragmentEpochsBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private val TAG = "KAN"
 
-    // Получаем зависимость
     @Inject
-    lateinit var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+    lateinit var loadImageUseCaseHilt: LoadImageUseCase
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentEpochsBinding.inflate(inflater, container, false)
@@ -42,7 +39,7 @@ class EpochsFragment : Fragment(), EpochsAdapter.Listener {
         navController = view.findNavController()
 
         viewModel.epochListLiveData.observe(viewLifecycleOwner) { epochList ->
-            val adapter = EpochsAdapter(epochList.sortedBy { it.id }, this, epochLoadImageUseCaseHilt)
+            val adapter = EpochsAdapter(epochList.sortedBy { it.id }, this, loadImageUseCaseHilt)
             binding.epochsRv.layoutManager = LinearLayoutManager(requireContext())
             binding.epochsRv.adapter = adapter
         }

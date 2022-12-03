@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import ru.lehandr.domain.model.EpochsModel
-import ru.lehandr.domain.useCase.EpochLoadImageUseCase
+import ru.lehandr.domain.useCase.LoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
 // Создаем слушателя для загрузки изображения.
 class EpochsAdapter (private var listEpochs: List<EpochsModel>,
                      private var listener: Listener,
-                     private var epochLoadImageUseCaseHilt: EpochLoadImageUseCase
+                     private var loadImageUseCaseHilt: LoadImageUseCase
                      ) : RecyclerView.Adapter<EpochsAdapter.EpochHolder>() {
 
     interface Listener {
@@ -24,7 +24,7 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EpochHolder {
         return EpochHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_epoch, parent, false),
-            parent.context, listener, epochLoadImageUseCaseHilt)
+            parent.context, listener, loadImageUseCaseHilt)
     }
 
     override fun onBindViewHolder(holder: EpochHolder, position: Int) {
@@ -37,7 +37,7 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>,
 
     class EpochHolder(view: View, private val context: Context,
                       private var listener: Listener,
-                      private var epochLoadImageUseCaseHilt: EpochLoadImageUseCase) : RecyclerView.ViewHolder(view) {
+                      private var loadImageUseCaseHilt: LoadImageUseCase) : RecyclerView.ViewHolder(view) {
 
         private val binding: ItemEpochBinding = ItemEpochBinding.bind(view)
 
@@ -45,7 +45,7 @@ class EpochsAdapter (private var listEpochs: List<EpochsModel>,
 
             item?.imageURL?.let { imageUrl ->
                 MainScope().launch {
-                    epochLoadImageUseCaseHilt.execute(imageUrl).collect {
+                    loadImageUseCaseHilt.execute(imageUrl).collect {
                         Glide.with(context).load(it).into(binding.imageEpoch)
                     }
                 }
