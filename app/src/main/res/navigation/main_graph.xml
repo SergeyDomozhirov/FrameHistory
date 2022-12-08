@@ -30,4 +30,9 @@
         android:name="ru.lehandr.framehistoryrussia.epochs.comics.ComicsFragment"
         android:label="fragment_comics"
         tools:layout="@layout/fragment_comics" />
+    <fragment
+        android:id="@+id/comicFragment"
+        android:name="ru.lehandr.framehistoryrussia.epochs.itemComic.ComicFragment"
+        android:label="fragment_comic"
+        tools:layout="@layout/fragment_comic" />
 </navigation>

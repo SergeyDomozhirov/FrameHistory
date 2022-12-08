@@ -11,6 +11,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.lehandr.domain.useCase.LoadImageUseCase
+import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.FragmentComicsBinding
 import javax.inject.Inject
 
@@ -60,7 +61,7 @@ class ComicsFragment() : Fragment(), ComicsAdapter.ClickListener {
     }
 
     override fun onClick() {
-        Toast.makeText(requireContext(), "Нажали на собаку", Toast.LENGTH_LONG).show()
+        navController.navigate(R.id.comicFragment)
     }
 }
 
