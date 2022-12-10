@@ -33,7 +33,7 @@ class ComicsAdapter(private val comicsList: List<ComicModel>,
     }
 
     override fun onBindViewHolder(holder: ComicsHolder, position: Int) {
-        holder.bind(comicsList[position].coverURL)
+        holder.bind(comicsList[position])
     }
 
     override fun getItemCount(): Int {
@@ -47,15 +47,18 @@ class ComicsAdapter(private val comicsList: List<ComicModel>,
 
         val binding: ComicsImageBinding = ComicsImageBinding.bind(view)
 
-        fun bind(coverURL: String?) {
+        fun bind(model: ComicModel) {
 
-            coverURL?.let { url ->
+            model.coverURL?.let { url ->
                 MainScope().launch {
                     loadImageUseCaseHilt.execute(url).collect {
                         Glide.with(context).load(it).into(binding.imageComic)
+                        binding.imageComic.clipToOutline = true
+                        binding.imageTitle.text = model.title
                     }
                 }
             }
+
 
             binding.imageComic.setOnClickListener {
                 clickListener.onClick()

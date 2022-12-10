@@ -11,5 +11,5 @@ fun EpochsModelData.toEpochModelDomain(): EpochsModel {
 
 val ComicsModelData.toComicsModelDomain: ComicModel
     get() {
-        return ComicModel(id = this.id, coverURL = this.coverURL, fullPath = this.fullPath)
+        return ComicModel(id = this.id, coverURL = this.coverURL, fullPath = this.fullPath, title = this.title)
     }

@@ -62,7 +62,7 @@ class FirestoreImpl @Inject constructor(private val db: FirebaseFirestore,
                     docRef.document(result.documents[i].id).get().addOnSuccessListener { documentSnapshot ->
                         documentSnapshot.toObject<ComicsModelData>()?.let { modelData ->
                             comicsList.add(ComicsModelData(id = modelData.id, coverURL = modelData.coverURL,
-                                fullPath = documentSnapshot.reference.path + modelData.fullPath))
+                                fullPath = documentSnapshot.reference.path + modelData.fullPath, title = modelData.title))
                             if (comicsList.size == result.size()) {
                                 MainScope().launch {
                                     trySend(comicsList)
