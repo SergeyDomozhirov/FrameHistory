@@ -12,7 +12,7 @@ import ru.lehandr.domain.model.EpochsModel
 import ru.lehandr.domain.useCase.LoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.ItemEpochBinding
-// Создаем слушателя для загрузки изображения.
+
 class EpochsAdapter (private var listEpochs: List<EpochsModel>,
                      private var listener: Listener,
                      private var loadImageUseCaseHilt: LoadImageUseCase

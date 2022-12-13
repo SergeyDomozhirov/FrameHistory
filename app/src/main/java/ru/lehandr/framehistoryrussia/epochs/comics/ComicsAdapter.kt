@@ -17,19 +17,21 @@ import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.data.firebase.firestore.models.ComicsModelData
 import ru.lehandr.framehistoryrussia.databinding.ComicsImageBinding
 
-class ComicsAdapter(private val comicsList: List<ComicModel>,
-                    private val clickListener: ClickListener,
-                    private var loadImageUseCaseHilt: LoadImageUseCase
+class ComicsAdapter(
+    private val comicsList: List<ComicModel>,
+    private val clickListener: ClickListener,
+    private var loadImageUseCaseHilt: LoadImageUseCase
 ) : RecyclerView.Adapter<ComicsAdapter.ComicsHolder>() {
 
     interface ClickListener {
-        fun onClick()
+        fun onClick(nameComic: String)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ComicsHolder {
         return ComicsHolder(
             LayoutInflater.from(parent.context).inflate(R.layout.comics_image, parent, false), parent.context,
-             clickListener, loadImageUseCaseHilt)
+            clickListener, loadImageUseCaseHilt
+        )
     }
 
     override fun onBindViewHolder(holder: ComicsHolder, position: Int) {
@@ -40,12 +42,14 @@ class ComicsAdapter(private val comicsList: List<ComicModel>,
         return comicsList.size
     }
 
-    class ComicsHolder(view: View,
-                       private val context: Context,
-                       private val clickListener: ClickListener,
-                       private var loadImageUseCaseHilt: LoadImageUseCase) : RecyclerView.ViewHolder(view) {
+    class ComicsHolder(
+        view: View,
+        private val context: Context,
+        private val clickListener: ClickListener,
+        private var loadImageUseCaseHilt: LoadImageUseCase
+    ) : RecyclerView.ViewHolder(view) {
 
-        val binding: ComicsImageBinding = ComicsImageBinding.bind(view)
+        private val binding: ComicsImageBinding = ComicsImageBinding.bind(view)
 
         fun bind(model: ComicModel) {
 
@@ -59,9 +63,10 @@ class ComicsAdapter(private val comicsList: List<ComicModel>,
                 }
             }
 
-
             binding.imageComic.setOnClickListener {
-                clickListener.onClick()
+                model.title?.let {
+                    clickListener.onClick(it)
+                }
             }
         }
     }

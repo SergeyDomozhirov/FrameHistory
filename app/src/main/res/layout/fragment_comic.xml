@@ -16,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/colorAccent"
-        tools:title="Славяне"
+        tools:title="arg_name_comic"
         app:titleTextColor="@color/white"
         app:navigationIcon="@drawable/ic_baseline_arrow_back_24"/>
 

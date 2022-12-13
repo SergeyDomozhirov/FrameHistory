@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
@@ -13,6 +12,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.lehandr.domain.useCase.LoadImageUseCase
 import ru.lehandr.framehistoryrussia.R
 import ru.lehandr.framehistoryrussia.databinding.FragmentComicsBinding
+import ru.lehandr.framehistoryrussia.epochs.itemComic.ARG_NAME_COMIC
 import javax.inject.Inject
 
 const val ARG_URL_EPOCH = "arg_url_epoch"
@@ -60,8 +60,10 @@ class ComicsFragment() : Fragment(), ComicsAdapter.ClickListener {
         }
     }
 
-    override fun onClick() {
-        navController.navigate(R.id.comicFragment)
+    override fun onClick(nameComic: String) {
+        val args = Bundle()
+        args.putString(ARG_NAME_COMIC, nameComic)
+        navController.navigate(R.id.comicFragment, args)
     }
 }
 
